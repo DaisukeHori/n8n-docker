@@ -1,15 +1,15 @@
-以下はGitHubのReadMeに記載するためのステップバイステップガイドです。全ての手順を含めていますので、そのままコピペで使用できます。
-
 ---
 
 # Dockerとn8nのセットアップガイド
 
-このガイドは、Ubuntu上でDockerとn8nをセットアップし、再起動後に自動的に起動するように設定するためのステップバイステップの手順を示しています。
+このガイドは、EC2インスタンス状のUbuntu24．04上でDockerとn8nをセットアップし、再起動後に自動的に起動するように設定するためのステップバイステップの手順を示しています。
 
 ## 前提条件
 
-- Ubuntuがインストールされていること
-- sudo権限を持つユーザーが存在すること
+- EC2上でSSH,80,443,5678のTCPポートを0.0.0.0/0（任意の場所）からアクセスできるようにセキュリティグループを設定しておくこと
+- ドメインを取得すること
+- EC2のパブリック IPv4 DNS　（ec2-xx-xx-xxx-xxx.ap-northeast-1.compute.amazonaws.com）をサブドメイン（一般的にはn8n.xxxx.com）にCNAMEで紐づけておくこと
+
 
 ## ステップ1: 古いDocker関連パッケージの削除
 
@@ -150,10 +150,10 @@ volumes:
 
 ```env
 # The top level domain to serve from
-DOMAIN_NAME=revol-one.com
+DOMAIN_NAME=revol-one.com #ここは都度書き換えましょう。事前に設定しておかないと設定時に名前解決できずSSLエラーになります
 
 # The subdomain to serve from
-SUBDOMAIN=n8n
+SUBDOMAIN=n8n　#ここは都度書き換えましょう
 
 # DOMAIN_NAME and SUBDOMAIN combined decide where n8n will be reachable from
 # above example would result in: https://n8n.example.com
