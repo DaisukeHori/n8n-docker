@@ -147,13 +147,14 @@ volumes:
 ```
 
 3. `.env`ファイルの作成
+所得したドメイン名とそのサブドメイン。Let’s EncryptのACME証明書取得に使用するメールアドレスを好きなEmailアドレスに書き換えて実行してください。
 
 ```env
 # The top level domain to serve from
 DOMAIN_NAME=revol-one.com #ここは都度書き換えましょう。事前に設定しておかないと設定時に名前解決できずSSLエラーになります
 
 # The subdomain to serve from
-SUBDOMAIN=n8n　#ここは都度書き換えましょう
+SUBDOMAIN=n8n　 #ここは都度書き換えましょう
 
 # DOMAIN_NAME and SUBDOMAIN combined decide where n8n will be reachable from
 # above example would result in: https://n8n.example.com
@@ -163,7 +164,7 @@ SUBDOMAIN=n8n　#ここは都度書き換えましょう
 GENERIC_TIMEZONE=Asia/Tokyo
 
 # The email address to use for the SSL certificate creation
-SSL_EMAIL=hori@revol.co.jp
+SSL_EMAIL=hori@revol.co.jp #ここは都度書き換えましょう。。Let’s Encryptで利用します。
 ```
 
 4. Docker Composeを使用してn8nとTraefikを起動
