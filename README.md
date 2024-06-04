@@ -11,6 +11,12 @@
 - ドメインを取得すること
 - EC2のパブリック IPv4 DNS　（ec2-xx-xx-xxx-xxx.ap-northeast-1.compute.amazonaws.com#こんな感じ）をサブドメイン（一般的にはn8n.xxxx.com）にCNAMEで紐づけておくこと
 
+余談：
+
+- t3nano:V2Core0.5GB:$5/月
+- t3micro:V2Core1GB:$10/月
+- t3small:V2Core2GB:$20/月
+- t3midium:V2Core4GB:$40/月
 
 ## ステップ1: 古いDocker関連パッケージの削除
 
