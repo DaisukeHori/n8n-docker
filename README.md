@@ -1,63 +1,89 @@
-Dockerとn8nのセットアップガイド
+以下はGitHubのReadMeに記載するためのステップバイステップガイドです。全ての手順を含めていますので、そのままコピペで使用できます。
+
+---
+
+# Dockerとn8nのセットアップガイド
+
 このガイドは、Ubuntu上でDockerとn8nをセットアップし、再起動後に自動的に起動するように設定するためのステップバイステップの手順を示しています。
 
-前提条件
-Ubuntuがインストールされていること
-sudo権限を持つユーザーが存在すること
-ステップ1: 古いDocker関連パッケージの削除
+## 前提条件
+
+- Ubuntuがインストールされていること
+- sudo権限を持つユーザーが存在すること
+
+## ステップ1: 古いDocker関連パッケージの削除
+
 以下のコマンドを実行して、古いDocker関連パッケージを削除します。
 
-sh
-コードをコピーする
+```sh
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove -y $pkg; done
-ステップ2: Dockerリポジトリの設定とインストール
-必要なパッケージのインストール
-sh
-コードをコピーする
+```
+
+## ステップ2: Dockerリポジトリの設定とインストール
+
+1. 必要なパッケージのインストール
+
+```sh
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
-DockerのGPGキーを追加
-sh
-コードをコピーする
+```
+
+2. DockerのGPGキーを追加
+
+```sh
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-Dockerリポジトリの追加
-sh
-コードをコピーする
+```
+
+3. Dockerリポジトリの追加
+
+```sh
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-Dockerと関連パッケージのインストール
-sh
-コードをコピーする
+```
+
+4. Dockerと関連パッケージのインストール
+
+```sh
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-Dockerの動作確認
-sh
-コードをコピーする
+```
+
+5. Dockerの動作確認
+
+```sh
 sudo docker run hello-world
-ステップ3: ユーザーをDockerグループに追加
-sh
-コードをコピーする
+```
+
+## ステップ3: ユーザーをDockerグループに追加
+
+```sh
 sudo usermod -aG docker ${USER}
+```
+
 この変更を反映するために、再ログインするか次のコマンドを実行します：
 
-sh
-コードをコピーする
+```sh
 su - ${USER}
-ステップ4: n8nとTraefikのセットアップ
-ディレクトリとボリュームの作成
-sh
-コードをコピーする
+```
+
+## ステップ4: n8nとTraefikのセットアップ
+
+1. ディレクトリとボリュームの作成
+
+```sh
 mkdir ~/n8n
 cd ~/n8n
 sudo docker volume create n8n_data
 sudo docker volume create traefik_data
-docker-compose.ymlファイルの作成
-yaml
-コードをコピーする
+```
+
+2. `docker-compose.yml`ファイルの作成
+
+```yaml
 version: "3.7"
 
 services:
@@ -118,9 +144,11 @@ volumes:
     external: true
   n8n_data:
     external: true
-.envファイルの作成
-env
-コードをコピーする
+```
+
+3. `.env`ファイルの作成
+
+```env
 # The top level domain to serve from
 DOMAIN_NAME=revol-one.com
 
@@ -136,19 +164,31 @@ GENERIC_TIMEZONE=Asia/Tokyo
 
 # The email address to use for the SSL certificate creation
 SSL_EMAIL=hori@revol.co.jp
-Docker Composeを使用してn8nとTraefikを起動
-sh
-コードをコピーする
+```
+
+4. Docker Composeを使用してn8nとTraefikを起動
+
+```sh
 sudo docker compose up -d
-ステップ5: 再起動後の自動起動設定
-既存のコンテナにrestart policyを設定
-sh
-コードをコピーする
+```
+
+## ステップ5: 再起動後の自動起動設定
+
+1. 既存のコンテナにrestart policyを設定
+
+```sh
 sudo docker update --restart always n8n-n8n-1
 sudo docker update --restart always n8n-traefik-1
-Dockerサービスをシステムの再起動時に自動的に起動するように設定
-sh
-コードをコピーする
+```
+
+2. Dockerサービスをシステムの再起動時に自動的に起動するように設定
+
+```sh
 sudo systemctl enable docker
+```
+
 これで、EC2インスタンスの再起動時にDockerが自動的に起動し、n8nとTraefikのコンテナが再起動されます。
 
+---
+
+このガイドに従って設定を行えば、Dockerとn8nの環境が正常に動作し、システムの再起動後も自動的に起動します。
