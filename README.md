@@ -49,6 +49,7 @@ sudo apt-get update
 
 4. Dockerと関連パッケージのインストール
 
+最新バージョンのインストールコマンドを入れます。
 ```sh
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
@@ -58,6 +59,10 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 ```sh
 sudo docker run hello-world
 ```
+
+####ここまでの参考
+https://docs.docker.com/engine/install/ubuntu/
+
 
 ## ステップ3: ユーザーをDockerグループに追加
 
