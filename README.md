@@ -2,13 +2,14 @@
 
 # Dockerとn8nのセットアップガイド
 
-このガイドは、EC2インスタンス状のUbuntu24.04上でDockerとn8nをセットアップし、再起動後に自動的に起動するように設定するためのステップバイステップの手順を示しています。
+このガイドは、EC2インスタンスのUbuntu24.04上でDockerとn8nをセットアップし、再起動後に自動的に起動するように設定するためのステップバイステップの手順を示しています。
 
 ## 前提条件
 
+- EC2インスタンスでUbuntu24.04を開始していてClIを操作できる状態であること
 - EC2上でSSH,80,443,5678のTCPポートを0.0.0.0/0（任意の場所）からアクセスできるようにセキュリティグループを設定しておくこと
 - ドメインを取得すること
-- EC2のパブリック IPv4 DNS　（ec2-xx-xx-xxx-xxx.ap-northeast-1.compute.amazonaws.com）をサブドメイン（一般的にはn8n.xxxx.com）にCNAMEで紐づけておくこと
+- EC2のパブリック IPv4 DNS　（ec2-xx-xx-xxx-xxx.ap-northeast-1.compute.amazonaws.com#こんな感じ）をサブドメイン（一般的にはn8n.xxxx.com）にCNAMEで紐づけておくこと
 
 
 ## ステップ1: 古いDocker関連パッケージの削除
