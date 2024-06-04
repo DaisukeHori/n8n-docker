@@ -60,7 +60,8 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo docker run hello-world
 ```
 
-####ここまでの参考
+###ここまでの参考
+
 https://docs.docker.com/engine/install/ubuntu/
 
 
