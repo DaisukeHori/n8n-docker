@@ -75,7 +75,7 @@ su - ${USER}
 1. ディレクトリとボリュームの作成
 
 ```sh
-mkdir ~/n8n
+mkdir ~/n8n #　n8nのdocker設定などを保管する場所として作成。
 cd ~/n8n
 sudo docker volume create n8n_data
 sudo docker volume create traefik_data
@@ -167,6 +167,7 @@ SSL_EMAIL=hori@revol.co.jp
 ```
 
 4. Docker Composeを使用してn8nとTraefikを起動
+docker-compose.ymlと.envのある場所でコマンドを実行すること。
 
 ```sh
 sudo docker compose up -d
