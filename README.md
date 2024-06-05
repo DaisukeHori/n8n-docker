@@ -81,6 +81,8 @@ sudo usermod -aG docker ${USER}
 
 ```sh
 su - ${USER}　#なんか知らんがこれ動かないし、動かなくても動いた。
+#あるいは↓
+newgrp docker
 ```
 
 ## ステップ4: n8nとTraefikのセットアップ
