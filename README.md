@@ -209,3 +209,7 @@ sudo systemctl enable docker
 ---
 
 このガイドに従って設定を行えば、Dockerとn8nの環境が正常に動作し、システムの再起動後も自動的に起動します。
+
+#Cloudflareで起動するとき
+```sh
+docker run -d --restart always --network=host cloudflare/cloudflared:latest tunnel --no-autoupdate run --token {Cloudflare-TOKEN}
